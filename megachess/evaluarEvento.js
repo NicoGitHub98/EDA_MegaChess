@@ -11,16 +11,24 @@ function evaluarEvento(serverMsg){
                 }
             }
             return myResponse;
-            break;
     
         case "your_turn":
-            myResponse = analizarMovimiento(serverMsg)
+            var mejorMov = analizarMovimiento(serverMsg)
+            myResponse = {
+                "action": "move", 
+                "data": {
+                    "board_id": serverMsg.data.board_id,
+                    "turn_token": serverMsg.data.turn_token,
+                    "from_row": mejorMov.fromRow,
+                    "from_col": mejorMov.fromColumn,
+                    "to_row": mejorMov.toRow,
+                    "to_col": mejorMov.toColumn
+                }
+            }
             return myResponse;  
-            break;
 
         default: 
             return myResponse = {}
-            break;
     }
 }
 

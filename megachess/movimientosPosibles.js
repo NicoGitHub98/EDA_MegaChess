@@ -1,3 +1,9 @@
+const {calcularPuntaje} = require("./puntajes");
+const {peon_1_adelante} = require("./movimientos/peon");
+const {peon_2_adelante} = require("./movimientos/peon");
+const {peon_come_izquierda} = require("./movimientos/peon");
+const {peon_come_derecha} = require("./movimientos/peon");
+
 function getMovimientosPosibles(misPiezas,tablero){
     var movimientosPosibles = []
     misPiezas.forEach(elemento => {
@@ -21,6 +27,8 @@ function calcularMovimientosPosibles(elemento,tablero,movimientosPosibles){
         dirOfMov = 1;
         promoteRow = 7;
     }
+
+    // Objeto Movimiento
     var movimiento = {
         pieza: "",
         fromRow: "",
@@ -30,12 +38,14 @@ function calcularMovimientosPosibles(elemento,tablero,movimientosPosibles){
         tipoMov: "",
         puntajeMov: ""
     };
+
     switch (elemento.pieza) {
         case "p":
         case "P":
             //Si puede moverse hacia adelante:
             if(tablero[elemento.fila + 1*dirOfMov][elemento.columna]==" "){
-                
+               
+                /*
                 movimiento.pieza = elemento.pieza;
                 movimiento.fromRow = elemento.fila;
                 movimiento.fromColumn = elemento.columna;
@@ -48,27 +58,38 @@ function calcularMovimientosPosibles(elemento,tablero,movimientosPosibles){
                 var promoteDis = Math.abs(elemento.fila - promoteRow)
                 movimiento.puntajeMov += 4/promoteDis;
                 movimientosPosibles.push(JSON.parse(JSON.stringify(movimiento)))
+                */
+                var movimiento = peon_1_adelante(elemento, dirOfMov, promoteRow);
+                movimientosPosibles.push(movimiento)
             }
+            
             //Si puede moverse dos casillas porque se encuentra en la fila 12/13 (blancas) o 2/3 (negras)
             if(
                 tablero[elemento.fila + 2*dirOfMov][elemento.columna]==" " &&
                 tablero[elemento.fila + 1*dirOfMov][elemento.columna]==" " &&
                 (elemento.fila == 12 || elemento.fila == 13 || elemento.fila == 2 || elemento.fila == 3)
             ){
+                /*
                 movimiento.pieza = elemento.pieza;
                 movimiento.fromRow = elemento.fila;
                 movimiento.fromColumn = elemento.columna;
                 movimiento.toRow = elemento.fila + 2*dirOfMov;
                 movimiento.toColumn = elemento.columna;
                 movimiento.tipoMov = "mover";
-                movimiento.puntajeMov = calcularPuntaje(elemento.pieza,"mover") + 1; //Sumo uno para que el movimiento doble tenga prioridad sobre el movimiento simple
-                
+
+                movimiento.puntajeMov = calcularPuntaje(elemento.pieza,"mover");
+                var promoteDis = Math.abs(elemento.fila - promoteRow)
+                movimiento.puntajeMov += 4/promoteDis;
+
                 movimientosPosibles.push(JSON.parse(JSON.stringify(movimiento)))
+                */
+                var movimiento = peon_2_adelante(elemento, dirOfMov, promoteRow);
+                movimientosPosibles.push(movimiento)
             }
             
             //Movimiento de comida diag derecha
             if(piezasEnemigas.includes(tablero[elemento.fila+1*dirOfMov][elemento.columna+1])){
-
+                /*
                 movimiento.pieza = elemento.pieza;
                 movimiento.fromRow = elemento.fila;
                 movimiento.fromColumn = elemento.columna;
@@ -76,12 +97,14 @@ function calcularMovimientosPosibles(elemento,tablero,movimientosPosibles){
                 movimiento.toColumn = elemento.columna + 1;
                 movimiento.tipoMov = "comer";
                 movimiento.puntajeMov = calcularPuntaje(tablero[elemento.fila+1*dirOfMov][elemento.columna+1],"comer")
-
                 movimientosPosibles.push(JSON.parse(JSON.stringify(movimiento)))
+                */
+                var movimiento = peon_come_derecha(elemento, dirOfMov, promoteRow);
+                movimientosPosibles.push(movimiento)
             }
             //Movimiento de comida diag izquierda
             if(piezasEnemigas.includes(tablero[elemento.fila+1*dirOfMov][elemento.columna-1])){
-
+                /*
                 movimiento.pieza = elemento.pieza;
                 movimiento.fromRow = elemento.fila;
                 movimiento.fromColumn = elemento.columna;
@@ -91,6 +114,9 @@ function calcularMovimientosPosibles(elemento,tablero,movimientosPosibles){
                 movimiento.puntajeMov = calcularPuntaje(tablero[elemento.fila+1*dirOfMov][elemento.columna-1],"comer")
 
                 movimientosPosibles.push(JSON.parse(JSON.stringify(movimiento)));
+                */
+                var movimiento = peon_come_izquierda(elemento, dirOfMov, promoteRow);
+                movimientosPosibles.push(movimiento)
             }
             break;
             case "h":
@@ -320,42 +346,7 @@ function calcularMovimientosPosibles(elemento,tablero,movimientosPosibles){
     }
 }
 
-function calcularPuntaje(pieza,tipoMov){
-    switch (pieza) {
-        case "p":
-        case "P":
-            if(tipoMov == "comer") return 100;
-            else return 10;
 
-        case "r":
-        case "R":
-            if(tipoMov == "comer") return 600;
-            else return 10//60;
-
-        case "h":
-        case "H":
-            if(tipoMov == "comer") return 300;
-            else return 10//30;
-
-        case "b":
-        case "B":
-            if(tipoMov == "comer") return 400;
-            else return 10//40;
-
-        case "q":
-        case "Q":
-            if(tipoMov == "comer") return 500;
-            else return 5;
-
-        case "k":
-        case "K":
-            if(tipoMov == "comer") return 1000;
-            else return 10//100; 
-
-        default:
-            break;
-    }
-}
 
 function seleccionarMejorMovimiento(movimientosPosibles){
 
