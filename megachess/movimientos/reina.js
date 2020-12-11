@@ -1,4 +1,0 @@
-function movs_reina(){
-
-    
-}

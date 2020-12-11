@@ -22,7 +22,7 @@ function calcularPuntaje(pieza,tipoMov){
 
         case "q":
         case "Q":
-            if(tipoMov == "comer") return 500;
+            if(tipoMov == "comer") return 50;
             else return 5;
 
         case "k":
@@ -37,10 +37,10 @@ function calcularPuntaje(pieza,tipoMov){
 
 function puntaje_distancia_promote(movimiento, promoteRow){
     var puntajeMov = calcularPuntaje(movimiento.pieza,"mover");
-    if(movimiento.toRow == 7 || movimiento.toRow == 8) puntajeMov = 50; //Mov de Promote
+    if(movimiento.toRow == 7 || movimiento.toRow == 8) puntajeMov = 500; //Mov de Promote
     else {
         var promoteDis = Math.abs(movimiento.fromRow - promoteRow)
-        puntajeMov += 4/promoteDis;
+        puntajeMov += 500/promoteDis;
     }
     return puntajeMov;
 }

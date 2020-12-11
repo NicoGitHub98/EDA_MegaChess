@@ -4,12 +4,13 @@
   "description": "Algoritmo de juego de ajedrez para EDA 2020-2021",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "jest": "^26.6.3",
     "ws": "^7.4.0"
   }
 }

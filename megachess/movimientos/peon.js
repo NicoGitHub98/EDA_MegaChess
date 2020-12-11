@@ -1,4 +1,4 @@
-const {puntaje_distancia_promote} = require("../puntajes");
+const {puntaje_distancia_promote,calcularPuntaje} = require("../puntajes");
 
 function peon_1_adelante(elemento, dirOfMov, promoteRow){
     var movimiento = {};
@@ -32,7 +32,7 @@ function peon_come_izquierda(elemento, dirOfMov, tablero){
     movimiento.fromRow = elemento.fila;
     movimiento.fromColumn = elemento.columna;
     movimiento.toRow = elemento.fila + 1*dirOfMov;
-    movimiento.toColumn = elemento.columna + 1;
+    movimiento.toColumn = elemento.columna - 1;
     movimiento.tipoMov = "comer";
     movimiento.puntajeMov = calcularPuntaje(tablero[movimiento.toRow][movimiento.toColumn],"comer")
     
@@ -46,7 +46,7 @@ function peon_come_derecha(elemento,dirOfMov,tablero){
     movimiento.fromRow = elemento.fila;
     movimiento.fromColumn = elemento.columna;
     movimiento.toRow = elemento.fila + 1*dirOfMov;
-    movimiento.toColumn = elemento.columna - 1;
+    movimiento.toColumn = elemento.columna + 1;
     movimiento.tipoMov = "comer";
     movimiento.puntajeMov = calcularPuntaje(tablero[movimiento.toRow][movimiento.toColumn],"comer")
 

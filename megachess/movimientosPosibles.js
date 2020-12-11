@@ -99,7 +99,7 @@ function calcularMovimientosPosibles(elemento,tablero,movimientosPosibles){
                 movimiento.puntajeMov = calcularPuntaje(tablero[elemento.fila+1*dirOfMov][elemento.columna+1],"comer")
                 movimientosPosibles.push(JSON.parse(JSON.stringify(movimiento)))
                 */
-                var movimiento = peon_come_derecha(elemento, dirOfMov, promoteRow);
+                var movimiento = peon_come_derecha(elemento, dirOfMov, tablero);
                 movimientosPosibles.push(movimiento)
             }
             //Movimiento de comida diag izquierda
@@ -115,7 +115,7 @@ function calcularMovimientosPosibles(elemento,tablero,movimientosPosibles){
 
                 movimientosPosibles.push(JSON.parse(JSON.stringify(movimiento)));
                 */
-                var movimiento = peon_come_izquierda(elemento, dirOfMov, promoteRow);
+                var movimiento = peon_come_izquierda(elemento, dirOfMov, tablero);
                 movimientosPosibles.push(movimiento)
             }
             break;
