@@ -4,7 +4,8 @@
   "description": "Algoritmo de juego de ajedrez para EDA 2020-2021",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "jest && node index.js"
   },
   "author": "",
   "license": "ISC",

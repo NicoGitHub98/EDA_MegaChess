@@ -3,6 +3,7 @@ const analizarMovimiento = require("./analizarMovimiento")
 function evaluarEvento(serverMsg){
     var myResponse = {}
     switch (serverMsg.event) {
+        /*
         case "ask_challenge":
             myResponse = {
                 "action": "accept_challenge", 
@@ -11,7 +12,7 @@ function evaluarEvento(serverMsg){
                 }
             }
             return myResponse;
-    
+            */
         case "your_turn":
             var mejorMov = analizarMovimiento(serverMsg)
             myResponse = {
